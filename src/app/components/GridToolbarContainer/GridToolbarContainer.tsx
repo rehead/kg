@@ -8,7 +8,7 @@ export default class GridToolbarContainer extends React.Component<IGridToolbarPr
   render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined  {
     return (
         <div className='k-grid-toolbar'>
-          <GridForm handleSubmit={this.props.handleFilterSubmit} />
+          <GridForm handleSubmit={this.props.handleFilterSubmit} formData={this.props.formData}/>
         </div>
     )
   }

@@ -35,6 +35,10 @@ class App extends React.Component<AppProps> {
 
     this.state = {
       orders: [],
+      filter: {
+        date: null,
+        amount: ''
+      },
       gridConfig: this.gridConfig,
       gridDataState: this.gridConfig.gridDataState
     }
@@ -48,8 +52,9 @@ class App extends React.Component<AppProps> {
     })
   }
 
-  handleFilterSubmit: FormProps['onSubmit'] = (filter: IFilter) => {console.log(filter)
+  handleFilterSubmit: FormProps['onSubmit'] = (filter: IFilter) => {
     this.setState({
+      filter: {...filter},
       gridDataState: HelpersService.prepareDataState(filter, this.state.gridConfig.gridDataState)
     });
   };
@@ -62,7 +67,7 @@ class App extends React.Component<AppProps> {
     return (
         <div className="container">
           <h1>Grid Filter</h1>
-          <GridToolbarContainer handleFilterSubmit={this.handleFilterSubmit}/>
+          <GridToolbarContainer handleFilterSubmit={this.handleFilterSubmit} formData={this.state.filter}/>
           <GridContainer config={this.gridConfig}
                          data={this.state.orders}
                          gridDataState={this.state.gridDataState}

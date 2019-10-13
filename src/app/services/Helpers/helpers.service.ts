@@ -1,5 +1,5 @@
 import { IGridConfig, IOrder } from '../../interfaces';
-import { State } from '@progress/kendo-data-query';
+import { CompositeFilterDescriptor, FilterDescriptor, State } from '@progress/kendo-data-query';
 
 export class HelpersService {
   static prepareOrders(data: Array<IOrder>) {
@@ -16,22 +16,28 @@ export class HelpersService {
 
   static prepareDataState(filter: any, gridDataState: State) {
     let newDataState: IGridConfig['gridDataState'] = { ...gridDataState };
+    let filters: Array<FilterDescriptor | CompositeFilterDescriptor> = [];
 
     if (filter.amount) {
+      filters.push({ field: 'amount', operator: 'startswith', value: filter.amount });
       newDataState.filter = {
         logic: 'and',
-        filters: [{ field: 'amount', operator: 'startswith', value: filter.amount }]
+        filters: filters
       };
 
       newDataState.skip = 0
     }
+
     if (filter.date) {
+      filters.push({ field: 'modified_date', operator: 'eq', value: filter.date });
       newDataState.filter = {
         logic: 'and',
-        filters: [{ field: 'modified_date', operator: 'eq', value: filter.date }]
-      }
+        filters: filters
+      };
+
       newDataState.skip = 0
     }
+
     if (!filter.date && !filter.amount) {
       delete newDataState.filter;
       newDataState.skip = 0

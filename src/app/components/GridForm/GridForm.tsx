@@ -15,6 +15,10 @@ export default class GridForm extends React.Component<IGridFormProps> {
   render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
     return (
         <Form
+            initialValues={{
+              date: this.props.formData.date,
+              amount: this.props.formData.amount
+            }}
             onSubmit={ this.props.handleSubmit }
             render={(formRenderProps: FormRenderProps) => {
               return (
@@ -22,12 +26,12 @@ export default class GridForm extends React.Component<IGridFormProps> {
 
                     <div className={styles.formField}>
                       <label>Date</label>
-                      <Field name={'date'} component={ DatePicker } />
+                      <Field name={'date'} component={ DatePicker } value={formRenderProps.valueGetter('date')}/>
                     </div>
 
                     <div className={styles.formField}>
                       <label>Amount</label>
-                      <Field name={'amount'} component={ Input } />
+                      <Field name={'amount'} component={ Input } value={formRenderProps.valueGetter('amount')}/>
                     </div>
 
                     <div className="buttons">

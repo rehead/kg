@@ -1,4 +1,4 @@
 export interface IFilter {
-  date?: Date;
-  amount?: number;
+  date?: Date | null;
+  amount?: string;
 }
