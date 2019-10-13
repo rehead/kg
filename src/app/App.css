@@ -1,3 +1,12 @@
 h1 {
-  padding: 0 20px;
+  padding: 0 12px;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.k-grid-toolbar {
+  padding: 12px;
 }

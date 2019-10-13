@@ -1,3 +1,5 @@
+import { FormProps } from '@progress/kendo-react-form';
+
 export interface IGridToolbarProps {
-  handleFilterSubmit: any
+  handleFilterSubmit: FormProps['onSubmit']
 }

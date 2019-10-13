@@ -1,7 +1,13 @@
 import React from 'react';
-import { process } from '@progress/kendo-data-query';
-import { Grid, GridColumn } from '@progress/kendo-react-grid';
+
+// Interfaces
 import { IGridContainerProps } from '../../interfaces';
+
+// Components
+import { Grid, GridColumn } from '@progress/kendo-react-grid';
+
+// Helpers
+import { process } from '@progress/kendo-data-query';
 
 export default class GridContainer extends React.Component<IGridContainerProps> {
 

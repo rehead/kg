@@ -1,3 +1,5 @@
+import { FormProps } from '@progress/kendo-react-form';
+
 export interface IGridFormProps {
-  handleSubmit: any;
+  handleSubmit: FormProps['onSubmit'];
 }

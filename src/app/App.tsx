@@ -1,17 +1,27 @@
 import React from 'react';
 
+// CSS
 import '@progress/kendo-theme-default/dist/all.css';
 import './App.css';
 
-import { IAppState, AppProps, IGridConfig, IOrder } from './interfaces';
+// Interfaces
+import { IAppState, AppProps, IGridConfig, IOrder, IFilter } from './interfaces';
+import { AxiosResponse } from 'axios';
+import { GridDataStateChangeEvent } from '@progress/kendo-react-grid';
+import { FormProps } from '@progress/kendo-react-form';
 
+// Components
 import GridToolbarContainer from './components/GridToolbarContainer/GridToolbarContainer';
 import GridContainer from './components/GridContainer/GridContainer';
-import { gridConfig } from './App.config';
-import { Util } from './helpers/Util';
-import { ApiService } from './services/Api/api.service';
-import { AxiosResponse } from 'axios';
 
+// Services
+import { ApiService } from './services/Api/api.service';
+
+// Helpers
+import { HelpersService } from './services/Helpers/helpers.service';
+
+// App config
+import { gridConfig } from './App.config';
 
 class App extends React.Component<AppProps> {
   state: IAppState;
@@ -31,26 +41,26 @@ class App extends React.Component<AppProps> {
   }
 
   componentDidMount(): void {
-    this.apiService.getOrders().then((res: AxiosResponse<Array<IOrder>>) => {
+    this.apiService.getOrders().then((result: AxiosResponse<Array<IOrder>>) => {
       this.setState({
-        orders: Util.prepareOrders(res.data)
+        orders: HelpersService.prepareOrders(result.data)
       })
     })
   }
 
-  handleFilterSubmit = (filter: {date?: Date; amount?: number;}) => {
+  handleFilterSubmit: FormProps['onSubmit'] = (filter: IFilter) => {console.log(filter)
     this.setState({
-      gridDataState: Util.prepareDataState(filter, this.state.gridConfig.gridDataState)
+      gridDataState: HelpersService.prepareDataState(filter, this.state.gridConfig.gridDataState)
     });
   };
 
-  handleGridDataStateChange = (e: any) => {
-    this.setState({gridDataState: e.data});
+  handleGridDataStateChange = (event: GridDataStateChangeEvent) => {
+    this.setState({gridDataState: event.data});
   };
 
   render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined  {
     return (
-        <div className="App">
+        <div className="container">
           <h1>Grid Filter</h1>
           <GridToolbarContainer handleFilterSubmit={this.handleFilterSubmit}/>
           <GridContainer config={this.gridConfig}

@@ -1,4 +1,6 @@
 import React from 'react';
+
+// Interfaces
 import { IGridToolbarProps } from '../../interfaces';
 import GridForm from '../GridForm/GridForm';
 

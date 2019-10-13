@@ -1,7 +1,7 @@
-import { IGridConfig, IOrder } from '../interfaces';
+import { IGridConfig, IOrder } from '../../interfaces';
 import { State } from '@progress/kendo-data-query';
 
-export class Util {
+export class HelpersService {
   static prepareOrders(data: Array<IOrder>) {
     return data.map((order: IOrder) => {
       let date = new Date(order.modified_date);
